@@ -31,6 +31,6 @@
     "webpack-cli": "3.3.4"
   },
   "dependencies": {
-    "fre": "^1.8.5"
+    "fre": "^1.12.0"
   }
 }
