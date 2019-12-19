@@ -1,10 +1,7 @@
 /** @jsx h */
 
 import { h, render, useReducer, useCallback, useEffect } from 'fre';
-
 function random(max) { return Math.round(Math.random() * 1000) % max; }
-
-function memo(fn) { return fn } // TODO
 
 var startTime;
 var lastMeasure;
@@ -19,7 +16,6 @@ var stopMeasure = function() {
     window.setTimeout(function () {
       lastMeasure = null;
       var stop = performance.now();
-      var duration = 0;
       console.log(last+" took "+(stop-startTime));
     }, 0);
   }
@@ -76,7 +72,7 @@ function listReducer(state, action) {
 
 const GlyphIcon = <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>;
 
-const Row = memo(({ selected, item, dispatch }) => {
+const Row = ({ selected, item, dispatch }) => {
   const select = useCallback(() => dispatch({ type: 'SELECT', id: item.id }), []),
     remove = useCallback(() => dispatch({ type: 'REMOVE', id: item.id }), []);
 
@@ -88,7 +84,7 @@ const Row = memo(({ selected, item, dispatch }) => {
       <td className="col-md-6"></td>
     </tr>
   );
-});
+};
 
 const Button = ({ id, cb, title }) => {
   const onClick = () => {
@@ -103,7 +99,7 @@ const Button = ({ id, cb, title }) => {
   );
 }
 
-const Jumbotron = memo(({ dispatch }) =>
+const Jumbotron = ({ dispatch }) =>(
     <div className="jumbotron">
       <div className="row">
         <div className="col-md-6">
@@ -120,8 +116,7 @@ const Jumbotron = memo(({ dispatch }) =>
           </div>
         </div>
       </div>
-    </div>
-  , () => true);
+    </div>);
 
 const Main = () => {
   const [state, dispatch] = useReducer(listReducer, { data: [], selected: 0 });
